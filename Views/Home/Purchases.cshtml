@@ -1,0 +1,61 @@
+﻿@model deal.data.Models.UserHistory;
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/StyleSheet.css")" />
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="Home" asp-action="SignIn">Вход</a>
+        </br>
+        <form asp-controller="Home" asp-action="Search">
+            <input type="search" name="searchstring"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="Index">Главная</a> |
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="Home" asp-action="">Создать объявление</a> |
+        <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+        <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a>
+    </div>
+    <div class="records">
+        <div>Заказы</div>
+        @{foreach (var records in Model.Orders)
+            { <div class="recordscard">
+                    @{ if (records != null)
+                        {
+                            <img id="records1" src="@records.Good.Img" />
+                            <div>Название: @records.Good.Name</div>
+                            <div>Сокращенное описание: @records.Good.mindesc</div>
+                            <div>Продавец: @records.Good.sellerName</div>
+                            <div>Цена: @records.Good.cost</div>
+                        }
+                    }
+                </div>
+            }
+            <div>Заказы с доставкой</div>
+            foreach (var records in Model.DeliveryRecords)
+            { <div class="recordscard">
+                    @{ if (records != null)
+                        {
+                            <img id="records1" src="@records.Order.Good.Img" />
+                            <div>Название: @records.Order.Good.Name</div>
+                            <div>Адрес доставки: @records.Adress</div>
+                            <div>Срок доставки: @records.deliveryDate</div>
+                            <div>Статус доставки: @records.status</div>
+                            if(records.deliveryman != null) {
+                                <div>Телефон курьера: @records.deliveryman.phone</div> }
+                             }
+                    }
+                </div>
+            }
+
+        }
+        }
+        <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

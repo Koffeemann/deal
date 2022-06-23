@@ -1,0 +1,51 @@
+﻿@model deal.data.Models.New;
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="@Url.Content("~/Content/Stylesheet.css")" />
+    </head>
+    <body>
+        <div class="header">
+            <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+            <a asp-controller="Home" asp-action="SignIn">Вход</a>
+            </br>
+            <form asp-controller="Home" asp-action="Search">
+                <input type="search" name="searchstring"><button>Поиск</button>
+            </form>
+            </br>
+            <a asp-controller="Home" asp-action="Index">Главная</a> |
+            <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+            <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+            <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+            <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+            <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a></br>
+            <a asp-controller="Home" asp-action="OrdersView">К покупателям</a>
+            <a asp-controller="Home" asp-action="New">Создать объявление</a>
+        </div>
+        <form asp-controller="Home" asp-action="New">
+            <div>Введите название товара: </div></br>
+            <input type="text" asp-for="good.Name" /></br>
+            <div>Краткое описание: </div>
+            <input type="text" asp-for="good.mindesc" /></br>
+            <div>Полное описание: </div>
+            <input type="text" asp-for="good.maxdesc" /></br>
+            <div>Введите ссылку на изображение: </div>
+            <input type="text" asp-for="good.Img" /></br>
+            <div>Цена: </div>
+            <input type="number" asp-for="good.cost" /></br>
+            <div>Выберите категорию для товара: </div>
+            <select name="category">
+                @for (int i = 0;i < Model.categories.Count; i++)
+                {
+                <option value="@i">@Model.categories[i].category</option>
+                }
+                <select/>
+                </br>
+            <div>Введите количество товара: </div>
+            <input type="number" asp-for="good.count" /></br>
+            <button>Создать объявление</button>
+        </form>
+        <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+    </body>
+</html>

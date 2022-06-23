@@ -1,0 +1,87 @@
+﻿
+@model List<deal.data.Models.Good>
+@{
+    ViewBag.Title = "Все пользователи";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/StyleSheet.css")" />
+</head>
+<body>
+    @{if (ViewBag.I != null)
+        {
+            <div class="username">
+                @ViewBag.U
+                Ваш баланс: @ViewBag.B
+             <form asp-controller="Home" asp-action="TopUp"><input type="number" name="count" min="0" value="0"/><button>Пополнить</button></form>
+            </div>
+        }
+    }</br>
+<div class="header">
+    <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+    <a asp-controller="Home" asp-action="SignIn">Вход</a>
+    </br>
+    <form asp-controller="Home" asp-action="Search">
+        <input type="search" name="searchstring"><button>Поиск</button>
+    </form>
+    </br> <a asp-controller="Home" asp-action="Index">Главная</a> |
+    <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+    <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+    <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+    <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+    <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a>
+
+</div>  
+
+
+    <div class="filters">
+        <form asp-controller="Home" asp-action="Filters">
+            Минимальная цена
+            </br>
+            <input type="text" class="min" name="min" />
+            </br> Максимальная цена</br>
+            <input type="text" class="max" name="max" />
+            </br>
+            @{ foreach (var categories in ViewBag.List)
+                {
+                    <input type="checkbox" name="categoryarray" value="@categories.Id" />@categories.category
+                    <br></br>
+
+                }
+
+            }
+            <button>Применить</button>
+        </form>
+    </div>
+    <div class="middle">
+
+        @{
+            if (Model.Count != 0)
+            {
+                foreach (var good in Model)
+                { <form asp-controller="Home" asp-action="GoodInf">
+
+                        <div class="card">
+                            <img src="@good.Img" class="image"/>
+                            <div>@good.Name</div>
+                            <div>@good.mindesc</div>
+                            <div>Цена: @good.cost.ToString()</div>
+                            <input type="hidden" name="Id" value="@good.Id" />
+                            <button type="submit" value="Отправить" class="btn btn-default">К товару</button>
+                        </div>
+                    </form>
+                }
+            }
+            else
+            {
+                <div>Нет результатов по вашему запросу</div>
+            }
+        }
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

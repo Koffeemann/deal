@@ -1,0 +1,51 @@
+﻿@model List<deal.data.Models.Good>;
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/Stylesheet.css")" />
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="Home" asp-action="SignIn">Вход</a>
+        </br>
+        <form asp-controller="Home" asp-action="Search">
+            <input type="search" name="searchstring"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="Index">Главная</a> |
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+        <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a></br>
+        <a asp-controller="Home" asp-action="OrdersView">К покупателям</a> |
+        <a asp-controller="Home" asp-action="New">Создать объявление</a>
+    </div>
+    <div class="records">
+        @{
+            foreach (var records in Model)
+            {<div class="recordscard">
+
+    <img id="records1" src="@records.Img" />
+    <div>@records.Name</div>
+    <div>@records.mindesc</div>
+    <div>Цена: @records.cost</div>
+    <div>Категория: @records.category.category</div>
+    <div>Статус отображения в поиске: @if (records.available)
+    {<div>отображается</div> }
+    else {
+        <div>не отображается</div>
+    }</div>
+    <form asp-controller="Home" asp-action="Delete">
+        <input type="hidden" name="Id" value="@records.Id" />
+        <button>Убрать из поиска</button>
+    </form>
+</div>
+            }
+        }
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

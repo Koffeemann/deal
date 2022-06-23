@@ -1,0 +1,47 @@
+﻿@model deal.data.Models.User
+@{
+    ViewData["Title"] = "View";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/Content/StyleSheet.css">
+    <title></title>
+</head>
+<body>
+    <div class="folders-sign-in">
+        <div>Вход</div>
+        </br>
+        <form asp-controller="Home" asp-action="SignIn2">
+            <div class="form-group">
+                <label asp-for="phone" class="control-label">Имя</label>
+                <div>
+                    Введите телефон</br>
+                    <input type="text" asp-for="phone">
+                </div>
+                </br>
+                <div>
+                    Введите пароль</br>
+                    <input type="password" asp-for="password">
+                </div>
+                </br>
+                <div class="form-group">
+                    <button type="submit" value="Отправить">Войти</button>
+                    <div>
+                        </br>
+                        @{
+                            if (ViewBag.Message != null)
+                            {
+
+                                <div>@ViewBag.Message</div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div class="folders-sign-in">
+</body>
+</html>
+

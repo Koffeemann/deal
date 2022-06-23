@@ -1,0 +1,39 @@
+﻿@model deal.data.Models.Order;
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/Stylesheet.css")"/>
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="Home" asp-action="SignIn">Вход</a>
+        </br>
+        <form asp-controller="Home" asp-action="Search">
+            <input type="search" name="searchstring"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="Index">Главная</a> |
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+        <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a>
+    </div>
+    <form asp-controller="Home" asp-action="DeliveryOrder">
+        <div>Введите адрес для доставки: </div></br>
+        <div>Город: </div>
+        <input type="text" name="adress" /></br>
+        <div>Улица: </div>
+        <input type="text" name="adress" /></br>
+        <div>Дом: </div>
+        <input type="text" name="adress" /></br>
+        <div>Квартира: </div>
+        <input type="text" name="adress" /></br>
+        <input type="hidden" value="@Model.Id" name="Id" />
+        <button>Заказать</button>
+    </form>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

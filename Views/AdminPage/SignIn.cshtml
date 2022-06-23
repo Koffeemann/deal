@@ -1,0 +1,49 @@
+﻿@model deal.data.Models.Worker
+@{
+    ViewData["Title"] = "View";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/Content/StyleSheet.css">
+    <title></title>
+</head>
+<body>
+    <div class="folders-sign-in">
+        <div>Вход</div>
+        </br>
+        <form asp-controller="AdminPage" asp-action="SignIn">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Имя</label>
+                <div>
+                    Введите имя</br>
+                    <input type="text" asp-for="Name">
+                </div>
+                </br>
+                <label asp-for="SecondName" class="control-label">Имя</label>
+                <div>
+                    Введите фамилию</br>
+                    <input type="text" asp-for="SecondName">
+                </div>
+                </br>
+                <div>
+                    Введите пароль</br>
+                    <input type="password" asp-for="password">
+                </div>
+                </br>
+                <div>
+                    <div class="form-group">
+                        <button type="submit" value="Отправить">Войти</button>
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <div>@ViewBag.Message</div>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

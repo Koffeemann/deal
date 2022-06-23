@@ -1,0 +1,143 @@
+﻿@model deal.data.Models.Context
+@{
+    ViewData["Title"] = "View";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/StyleSheet.css")" />
+</head>
+<body>
+    <div class="adminpage">
+        <div class="border">
+            <b>Пользователи:</b>
+            @{  
+                foreach (var user in Model.Users)
+                { <div class="border">
+                        <div>Имя: @user.Name</div><br />
+                        <div>Телефон: @user.phone</div><br />
+                        <div>Телефон: @user.password</div><br />
+                        @{ if (!user.IsOrganization) {
+                                <form asp-controller="AdminPage" > 
+                            <input type="hidden" name="Id" value="@user.Id"/>
+                            <button asp-action="OrgStatus">Присвоить статус организации</button>
+                                    <button asp-action="DeleteUser">Удалить запись</button>
+                                </form>
+                            } }
+                    </div>
+                }
+            }
+        </div>
+        <div class="border">
+
+            <b>Объявления   :</b>
+            @{
+                foreach (var goods in Model.Goods)
+                { <div class="border">
+                                  <form asp-controller="AdminPage">
+                                      <img src="@goods.Img" />
+                                      <div>@goods.Id</div><br />
+                                      <div>Название: </div>
+                                      <input type="text" name="Name" value="@goods.Name" /><br />
+                                      <div>Изображение: </div>
+                                      <input type="text" name="Img" value="@goods.Img" /><br />
+                                      <div>Сокращенное описание: </div>
+                                      <input type="text" name="mindesc" value="@goods.mindesc" /><br />
+                                      <div>Цена: </div>
+                                      <input type="text" name="cost" value="@goods.cost" /><br />
+                                      <div>Полное описание: </div>
+                                      <input type="text" name="maxdesc" value="@goods.maxdesc" /><br />
+                                      <input type="hidden" value="@goods.Id" name="Id" />
+                                      <input type="hidden" value="WorkPage" name="view" />
+                                      <button asp-action="Release">Изменить</button>
+                                      <button asp-action="Delete">Удалить</button>
+                                  </form>
+                        <form asp-controller="Home" asp-action="GoodInf">
+                            <input value="@goods.Id" type="hidden" name="Id" />
+                            <button type="submit">Открыть</button>
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+        <div class="border">
+
+            <b>Работники:</b>
+            <div>@ViewBag.message1</div>
+            <form asp-controller="AdminPage" asp-action="CreateWorker">
+
+                <div>Имя: </div>
+                <input type="text" name="Name" /> <br />
+                <div>Фамилия: </div>
+                <input type="text" name="SecName" /> <br />
+                <div>Телефон: </div>
+                <input type="text" name="phone" /> <br />
+                <div>Пароль: </div>
+                <input type="text" name="password" />
+                <button type="submit" value="Отправить">Добавить модератора</button>
+            </form>
+
+            @{
+                foreach (var worker in Model.Workers)
+                { <div class="border">
+                        <form asp-controller="AdminPage">
+                            Имя:
+                            <div>Имя: </div>
+                            <input type="text" name="Name" value="@worker.Name" /><br />
+                            <div>Фамилия: </div>
+                            <input type="text" name="SecName" value="@worker.SecondName" /><br />
+                            <div>Пароль: </div>
+                            <input type="text" name="password" value="@worker.password" /><br />
+                            <div>Телефон: </div>
+                            <input type="text" name="phone" value="@worker.phone" />
+                            <input type="hidden" value="@worker.Id" name="Id" />
+                            <input type="hidden" value="WorkPage" name="view" />
+                            <button asp-action="ChangeWorker">Изменить</button>
+                            <button asp-action="DeleteWorker">Удалить</button>
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+        <div class="border">
+            <b>Курьеры: </b>
+            <div>@ViewBag.message2</div> 
+            <form asp-controller="AdminPage" asp-action="CreateDeliveryman">
+                <div>Имя: </div>
+                <input type="text" name="Name"/><br />
+                <div>Фамилия: </div>
+                <input type="text" name="SecName"/><br />
+                <div>Телефон: </div>
+                <input type="text" name="phone"/><br />
+                <div>Пароль: </div>
+                <input type="text" name="password"/><br />
+                <button type="submit" value="Отправить">Добавить курьера</button>
+            </form>
+
+            @{
+                foreach (var worker in Model.Deliverymens)
+                { <div class="border">
+                                  <form asp-controller="AdminPage">
+                                      <div>Имя: </div>
+                                      <input type="text" name="Name" value="@worker.Name" /><br />
+                                      <div>Фамилия: </div>
+                                      <input type="text" name="SecName" value="@worker.SecondName" /><br />
+                                      <div>Пароль: </div>
+                                      <input type="text" name="password" value="@worker.password" /><br />
+                                      <div>Телефон: </div>
+                                      <input type="text" name="phone" value="@worker.phone" /><br />
+                                      <input type="hidden" value="@worker.Id" name="Id" />
+                                      <input type="hidden" value="WorkPage" name="view" />
+                                      <button asp-action="ChangeDeliveryman">Изменить</button>
+                                      <button asp-action="DeleteDeliveryman">Удалить</button>
+                                  </form>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿@model List<deal.data.Models.Good>;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+    </title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/StyleSheet.css")" />
+</head>
+<body>
+    @{
+        foreach (var statements in Model)
+        {<form asp-controller="AdminPage">
+    <div>@statements.Id</div>
+    <div>Название: </div>
+    <input type="text" name="Name" value="@statements.Name" /><br />
+    <div>Изображение: </div>
+    <input type="text" name="Img" value="@statements.Img" /><br />
+    <div>Сокращенное описание: </div>
+    <input type="text" name="mindesc" value="@statements.mindesc" /><br />
+    <div>Цена: </div>
+    <input type="text" name="cost" value="@statements.cost" /><br />
+    <div>Полное описание: </div>
+    <input type="text" name="maxdesc" value="@statements.maxdesc" />
+    <input type="hidden" value="@statements.Id" name="id" />
+    <input type="hidden" value="ModerPage" name="view" />
+    <button asp-action="Release">Изменить и выпустить</button>
+    <button asp-action="Delete">Удалить</button>
+</form>
+        }
+    }
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

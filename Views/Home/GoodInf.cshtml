@@ -1,0 +1,58 @@
+﻿@model deal.data.Models.Good;
+@{ ViewBag.Title = "Все пользователи"; }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/Content/StyleSheet.css">
+    <title>Заголовок страницы</title>
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="home" asp-action="SignIn">Вход</a>
+        </br><form asp-controller="Home" asp-action="Search">
+            <input type="search"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="Index">Главная</a> |
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+        <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a>
+    </div>
+    <div class="goods">
+        <img src="@Model.Img" alt="попробуйте перезагрузить страницу" id="goodinf1">
+        <div id="goodinf2">
+            <div>@ViewBag.Message</div>@Model.maxdesc
+        </div>
+        <div id="goodinf3">Продавец: @Model.sellerName.Name</div>
+        
+        @if (Model.count > 0)
+        {   <div id="goodinf4">Количество на складе: @Model.count</div>
+            <form asp-controller="Home" asp-action="Buy">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div id="goodinf5">Выберите количество товара: <input type="number" max="@Model.count" min="1" name="count" value="1" /></div>
+                <button id="goodinf6">Купить</button>
+            </form>
+                            @if (Model.sellerName.IsOrganization)
+                                {
+                <form asp-controller="Home" asp-action="Adress">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <button id="goodinf7">Купить с доставкой</button>
+                </form> } 
+        }
+        else
+        {
+            <div id="goodinf5">Товара нет в наличии на данный момент</div>
+        }
+
+        <form id="goodinf8" asp-controller="home" asp-action="ShopCart2">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <button type="submit">В корзину</button>
+        </form>
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

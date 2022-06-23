@@ -1,0 +1,53 @@
+﻿@model List<deal.data.Models.ShopCart>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/Stylesheet.css")"/>
+    <title></title>
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="Home" asp-action="SignIn">Вход</a>
+        </br>
+        <form asp-controller="Home" asp-action="Search">
+            <input type="search" name="searchstring"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="Index">Главная</a> |
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="Home" asp-action="">Создать объявление</a> |
+        <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+        <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a>
+    </div>
+    <div>Ваша корзина</div>
+    <div class="middle">
+        @{
+            foreach (var good in Model)
+            {
+                <div class="card">
+                    <div>@good.Good.Name</div>
+                    <div><img src="@good.Good.Img" /></div>
+                    <div>@good.Good.mindesc</div>
+                    <form asp-controller="Home" asp-action="GoodInf">
+                        <input type="hidden" value="@good.Good.Id" name="Id" />
+                        <button>К товару</button>
+                    </form>
+                    <form asp-controller="Home" asp-action="Buy">
+                        <input type="hidden" value="@good.Good.Id" name="Id" />
+                        <button>Купить</button>
+                    </form>
+                    <form asp-controller="home" asp-action="ShopCartDelete">
+                        <input type="hidden" value="@good.ID" name="id" />
+                        <button type="submit">Удалить из корзины</button>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

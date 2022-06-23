@@ -1,0 +1,47 @@
+﻿@model List<deal.data.Models.Order>;
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/Stylesheet.css")" />
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="Home" asp-action="SignIn">Вход</a>
+        </br>
+        <form asp-controller="Home" asp-action="Search">
+            <input type="search" name="searchstring"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="Index">Главная</a> |
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="DeliverymanPage" asp-action="SignIn">Работа в доставке</a> |
+        <a asp-controller="AdminPage" asp-action="SignIn">Для сотрудников</a></br>
+        <a asp-controller="Home" asp-action="Orders">К покупателям</a> |
+        <a asp-controller="Home" asp-action="New">Создать объявление</a>
+    </div>
+    <div class="records">
+        @{
+            foreach (var records in Model)
+            {<div class="recordscard">
+                <img id="records1" src="@records.Good.Img" />
+                <div>@records.Good.Name</div>
+                <div>@records.Good.mindesc</div>
+                <div>Цена: @records.Good.cost</div>
+                <div>Категория: @records.Good.category</div>
+                <div>Имя покупателя: @records.User.Name</div>
+                <div>Телефон покупателя: @records.User.phone</div>
+                <form asp-controller="Home" asp-action="Delete">
+                    <input type="hidden" name="Id" value="@records.Id" />
+                    <button>Убрать из поиска</button>
+                </form>
+            </div>
+            }
+        }
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>

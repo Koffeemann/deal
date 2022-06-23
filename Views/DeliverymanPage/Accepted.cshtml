@@ -1,0 +1,54 @@
+﻿@model List<deal.data.Models.DeliveryRecord>;
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/StyleSheet.css")" />
+</head>
+<body>
+    <div class="header">
+        <a asp-controller="Home" asp-action="Create">Зарегистрироваться</a> |
+        <a asp-controller="Home" asp-action="SignIn">Вход</a>
+        </br>
+        <form asp-controller="Home" asp-action="Search">
+            <input type="search" name="searchstring"><button>Поиск</button>
+        </form>
+        </br>
+        <a asp-controller="Home" asp-action="ShopCart">Корзина</a> |
+        <a asp-controller="Home" asp-action="Purchases">Ваши покупки</a> |
+        <a asp-controller="Home" asp-action="Advertisements">Ваши объявления</a> |
+        <a asp-controller="DeliverymanPage" asp-action="WorkPage">Свободные заказы</a> |
+        <a asp-controller="DeliverymanPage" asp-action="Accepted">Принятые заказы</a> |
+        <a asp-controller="DeliverymanPage" asp-action="History">История заказов</a>
+
+    </div>
+    <div class="records">
+        @{
+
+            foreach (var records in Model)
+            {
+                <div class="recordscard">
+                    <img id="records1" src="@records.Order.Good.Img" />
+                    <div>Артикул товара: @records.Order.Good.Id</div>
+                    <div>Название: @records.Order.Good.Name</div>
+                    <div>Адрес доставки: @records.Adress</div>
+                    <div>Телефон заказчика: @records.Order.User.phone</div>
+                    <div>Срок доставки: @records.deliveryDate</div>
+                    <div>Статус заказа: @records.status <form asp-controller="DeliverymanPage" asp-action="Change">
+                        <input type="hidden" name="Id" value="@records.Id">
+                        <select name="option">
+                        <option  value="принят">принят</option>
+                        <option  value="доставлен">доставлен</option>
+                        </select>
+                        <button>Изменить</button></form></div>
+                    <form asp-controller="DeliverymanPage" asp-action="Cancel">
+                        <input type="hidden" value="@records.Id" name="Id" />
+                        <button>Отказаться от заказа</button>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+    <div class="footer"><span>Edited by Egor Arkhipov</span></div>
+</body>
+</html>
